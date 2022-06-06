@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { isAuthenticated } = require('../middleware/jwt.middleware');
-
+const fileUploader = require("../config/cloudinary.config");
 const User = require('../models/User.model');
 const Restaurant = require('../models/Restaurant.model');
 const Comment = require("../models/Comment.model")
@@ -8,7 +8,7 @@ const Comment = require("../models/Comment.model")
 router.post('/restaurants/comments', isAuthenticated, (req, res, next) => {
   const { restaurant, content, imageUrl} = req.body;
   const {_id} = req.payload;
-
+console.log(req.body)
   let newComment;
 
   Comment.create({ author: _id, restaurant, content, imageUrl })
@@ -69,6 +69,27 @@ Comment.findById(commentId)
 })
 .catch((err) => res.json(err));
   });
+
+
+
+
+
+  router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
+    
+   
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      return;
+    }
+    
+    // Get the URL of the uploaded file and send it as a response.
+    // 'fileUrl' can be any name, just make sure you remember to use the same when accessing it on the frontend
+    
+    res.json({ fileUrl: req.file.path });
+  });
+   
+
+
 
 
 
