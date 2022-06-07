@@ -2,12 +2,12 @@ const { Schema, model } = require("mongoose");
 
 const restaurantSchema = new Schema({
   name: { type: String, required: true },
-  imageCover: { type: String },
+  imageUrl: { type: String },
   city: { type: String, required: true },
-  contact: { type: Number },
+  contact: { type: Number, required: true },
   address: { type: String, required: true },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  averagePrice: { type: Number },
+  averagePrice: { type: Number, required: true},
   location: {
     address: String,
     geo: {

@@ -7,7 +7,7 @@ const Restaurant = require("../models/Restaurant.model");
 router.post("/restaurants", (req, res, next) => {
   const {
     name,
-    imageCover,
+    imageUrl,
     city,
     contact,
     address,
@@ -17,7 +17,7 @@ router.post("/restaurants", (req, res, next) => {
 
   Restaurant.create({
     name,
-    imageCover,
+    imageUrl,
     city,
     contact,
     address,
